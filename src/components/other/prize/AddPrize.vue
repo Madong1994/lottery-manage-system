@@ -18,17 +18,18 @@
       </div>
 
       <div class="container">
-        <el-divider content-position="left">奖品信息</el-divider>
-        <el-form-item label="奖品名称" prop="title" placeholder="请输入奖品名称">
-          <el-input v-model="ruleForm.title"></el-input>
+        <div class="headerTitle">奖品信息</div>
+        <div>
+        <el-form-item label="奖品描述" prop="prizeDescription" placeholder="请输入奖品描述">
+          <el-input v-model="ruleForm.prizeDescription" type="textarea"></el-input>
         </el-form-item>
-        <el-form-item label="奖品数量" prop="count" placeholder="请输入奖品金额">
-          <el-input v-model="ruleForm.count"></el-input>
+        <el-form-item label="奖品数量">
+          <el-input-number v-model="ruleForm.prizeCount" :min="1" :max="100"></el-input-number>
         </el-form-item>
         <el-form-item label="奖品图片">
           <el-upload
             class="avatar-uploader"
-            action="http://127.0.0.1:8082/upload/file"
+            action="http://127.0.0.1:8080/lottery/upload/image"
             :show-file-list="false"
             :on-success="handleAvatarSuccess"
             :before-upload="beforeAvatarUpload"
@@ -37,50 +38,54 @@
             <i v-else class="el-icon-plus avatar-uploader-icon"></i>
           </el-upload>
         </el-form-item>
+        </div>
       </div>
     </div>
   </el-form>
 </template>
 
 <script>
+import { addPrize } from "../../../api/index";
+import { file } from "../../../api/index";
 export default {
-  name: "editor",
+  name: "add",
   data() {
     return {
       imgUrl: "",
+      file: file(),
       ruleForm: {
-        title: "",
-        count: ""
+        prizeDescription: "",
+        prizeCount: ""
       },
       rules: {
-        title: [{ required: true, message: "请输入活动名称", trigger: "blur" }],
-        count: [{ required: true, message: "请输入奖品数量", trigger: "blur" }]
+        prizeDescription: [{ required: true, message: "请输入描述", trigger: "blur" }],
       }
     };
   },
   methods: {
     /**图片 */
     handleAvatarSuccess(res, file) {
-      // this.imgUrl = URL.createObjectURL(file.raw);
+      this.imgUrl = URL.createObjectURL(file.raw);
     },
     beforeAvatarUpload(file) {
-      // const isJPG = file.type === "image/jpeg";
-      // const isLt2M = file.size / 1024 / 1024 < 2;
-      // if (!isJPG) {
-      //   this.$message.error("上传头像图片只能是 JPG 格式!");
-      // }
-      // if (!isLt2M) {
-      //   this.$message.error("上传头像图片大小不能超过 2MB!");
-      // }
-      // return isJPG && isLt2M;
+      const isJPG = file.type === "image/jpeg";
+      const isLt2M = file.size / 1024 / 1024 < 2;
+      if (!isJPG) {
+        this.$message.error("上传头像图片只能是 JPG 格式!");
+      }
+      if (!isLt2M) {
+        this.$message.error("上传头像图片大小不能超过 2MB!");
+      }
+      return isJPG && isLt2M;
     },
     submitForm(formName) {
       this.$refs[formName].validate(valid => {
         if (valid) {
-          alert("submit!");
-        } else {
-          console.log("error submit!!");
-          return false;
+          addPrize(this.ruleForm.prizeDescription,this.imgUrl,this.ruleForm.prizeCount).then(resoponse => {
+            if (resoponse.status = 200) {
+                 this.$message.success("添加成功");
+            }
+          });
         }
       });
     }

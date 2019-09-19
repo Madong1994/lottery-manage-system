@@ -19,63 +19,57 @@ export default new Router({
                     component: resolve => require(['../components/page/Dashboard.vue'], resolve),
                     meta: { title: '系统首页' }
                 },
+                    /** 活动管理*/
                 {
-                    path: '/lottery',
-                    component: resolve => require(['../components/lottery/AddLottery.vue'], resolve),
-                    meta: { title: '新增lottery' }
+                    path: '/activity',
+                    component: resolve => require(['../components/other/activity/Activity.vue'], resolve),
+                    meta: { title: '活动管理' }
                 },
+
+                  /** 赞助商管理*/
                 {
                     path: '/sponsor',
-                    component: resolve => require(['../components/lottery/Sponsor.vue'], resolve),
-                    meta: { title: '赞助商' }
+                    component: resolve => require(['../components/other/sponsor/Sponsor.vue'], resolve),
+                    meta: { title: '赞助商管理' }
                 },
 
                 {
-                    // markdown组件
                     path: '/addsponsor',
-                    component: resolve => require(['../components/lottery/addSponsor.vue'], resolve),
+                    component: resolve => require(['../components/other/sponsor/AddSponsor.vue'], resolve),
                     meta: { title: '新增赞助商' }    
                 },
                 {
                     path: '/sponsortype',
-                    component: resolve => require(['../components/lottery/SponsorType.vue'], resolve),
-                    meta: { title: '赞助商类型' }
+                    component: resolve => require(['../components/other/sponsor/SponsorType.vue'], resolve),
+                    meta: { title: '赞助商类型管理' }
                 },
                 {
+                    path: '/addsponsortype',
+                    component: resolve => require(['../components/other/sponsor/AddSponsorType.vue'], resolve),
+                    meta: { title: '新增赞助商类型管理' }
+                },
+                {
+                    path: '/editsponsortype',
+                    component: resolve => require(['../components/other/sponsor/EditSponsorType.vue'], resolve),
+                    meta: { title: '编辑赞助商类型管理' }
+                },
+                   /** 奖品管理*/
+                {
                     path: '/prize',
-                    component: resolve => require(['../components/lottery/Prize.vue'], resolve),
-                    meta: { title: '奖品' }
+                    component: resolve => require(['../components/other/prize/Prize.vue'], resolve),
+                    meta: { title: '奖品管理' }
                 },
                 {
                     path: '/addPrize',
-                    component: resolve => require(['../components/lottery/AddPrize.vue'], resolve),
+                    component: resolve => require(['../components/other/prize/AddPrize.vue'], resolve),
                     meta: { title: '新增奖品' }
                 },
                 {
                     path: '/editPrize',
-                    component: resolve => require(['../components/lottery/EditPrize.vue'], resolve),
+                    component: resolve => require(['../components/other/prize/EditPrize.vue'], resolve),
                     meta: { title: '编辑奖品' }
                 },
-                {
-                    path: '/icon',
-                    component: resolve => require(['../components/page/Icon.vue'], resolve),
-                    meta: { title: '自定义图标' }
-                },
-                {
-                    path: '/table',
-                    component: resolve => require(['../components/page/BaseTable.vue'], resolve),
-                    meta: { title: '基础表格' }
-                },
-                {
-                    path: '/tabs',
-                    component: resolve => require(['../components/page/Tabs.vue'], resolve),
-                    meta: { title: 'tab选项卡' }
-                },
-                {
-                    path: '/form',
-                    component: resolve => require(['../components/page/BaseForm.vue'], resolve),
-                    meta: { title: '基本表单' }
-                },
+               
                 {
                     // 富文本编辑器组件
                     path: '/editor',
