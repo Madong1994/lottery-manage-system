@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 var webURL = 'http://127.0.0.1:8080/web/api';
-var fileURL = 'http://127.0.0.1:8080//lottery'
+var fileURL = 'http://127.0.0.1:8080/lottery'
 
 /**赞助商类型列表 */    
  export const sponsorType = (page,rows) => {
@@ -31,8 +31,5 @@ export const prize = (page,rows) => {
 }
 
 /**文件上传 */    
-export const file = (image) => {
-  return axios.post(fileURL+'/upload/image?image='+image
- )
-}
+export const file = fileURL+"/upload/image"
     

@@ -29,7 +29,7 @@
         <el-form-item label="奖品图片">
           <el-upload
             class="avatar-uploader"
-            action="http://127.0.0.1:8080/lottery/upload/image"
+            :action="file"
             :show-file-list="false"
             :on-success="handleAvatarSuccess"
             :before-upload="beforeAvatarUpload"
@@ -52,7 +52,7 @@ export default {
   data() {
     return {
       imgUrl: "",
-      file: file(),
+      file:file,
       ruleForm: {
         prizeDescription: "",
         prizeCount: ""
